@@ -149,11 +149,22 @@ export function getDatabaseVersion(db: ISqliteDriver): number {
 }
 
 /**
+ * Validate a database version before it is interpolated into a pragma.
+ * Rejects NaN, Infinity, negative numbers, and non-integers.
+ */
+export function assertValidDatabaseVersion(version: number): number {
+  if (!Number.isSafeInteger(version) || version < 0) {
+    throw new Error(`Invalid database version: ${version}`);
+  }
+  return version;
+}
+
+/**
  * Set database version
  * Uses SQLite's built-in user_version pragma
  */
 export function setDatabaseVersion(db: ISqliteDriver, version: number): void {
-  db.pragma(`user_version = ${version}`);
+  db.pragma(`user_version = ${assertValidDatabaseVersion(version)}`);
 }
 
 /**
