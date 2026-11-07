@@ -498,7 +498,8 @@ function prepareAioncore(options) {
       console.log(`  Using local aioncore bundle: ${resolvedLocalBundleDir}`);
       return { prepared: true, dir: targetDir, sourceType: 'local-bundle' };
     }
-    console.warn(`  Local aioncore bundle is incomplete or missing: ${resolvedLocalBundleDir}`);
+    // Fail instead of silently downloading the upstream binary.
+    throw new Error(`Local aioncore bundle is incomplete or missing: ${resolvedLocalBundleDir}`);
   }
 
   let sourcePath = null;
