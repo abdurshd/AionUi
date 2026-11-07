@@ -12,6 +12,7 @@ if ((window as { electronAPI?: unknown }).electronAPI) {
   import('@sentry/electron/renderer')
     .then((Sentry) =>
       Sentry.init({
+        enabled: false,
         beforeSend(event) {
           if (!(window as { __backendStartupFailed?: boolean }).__backendStartupFailed) {
             return event;

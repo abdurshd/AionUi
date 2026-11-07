@@ -115,6 +115,7 @@ function isBackendStartupSecondaryEvent(event: { tags?: Record<string, unknown> 
 
 export function initSentry(): void {
   Sentry.init({
+    enabled: false,
     dsn: process.env.SENTRY_DSN,
     environment: app.isPackaged ? 'production' : 'development',
     beforeSend(event) {
