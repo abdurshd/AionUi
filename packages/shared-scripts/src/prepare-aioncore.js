@@ -72,7 +72,7 @@ function copyFileSafe(sourcePath, targetPath) {
 
 function copyDirectorySafe(sourcePath, targetPath) {
   ensureDirectory(path.dirname(targetPath));
-  fs.cpSync(sourcePath, targetPath, { recursive: true, force: true });
+  fs.cpSync(sourcePath, targetPath, { recursive: true, verbatimSymlinks: true, force: true });
 }
 
 function ensureExecutableMode(filePath) {
